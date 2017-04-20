@@ -2,9 +2,11 @@
   "name": "movie-finder",
   "version": "0.1.0",
   "description": "",
-  "main": "index.js",
+  "main": "./build/main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "electron": "electron .",
+    "tsc": "tsc",
+    "gulp": "gulp"
   },
   "repository": {
     "type": "git",
@@ -13,5 +15,19 @@
   "author": "Ondřej Zráuba <info@zaruba-ondrej.cz> (https://zaruba-ondrej.cz)",
   "license": "UNLICENSED",
   "private": true,
-  "homepage": "https://bitbucket.org/Budry/movie-finder#readme"
+  "homepage": "https://bitbucket.org/Budry/movie-finder#readme",
+  "dependencies": {
+    "electron": "^1.6.5",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4"
+  },
+  "devDependencies": {
+    "@types/electron": "^1.4.37",
+    "@types/react": "^15.0.22",
+    "@types/react-dom": "^15.5.0",
+    "gulp": "^3.9.1",
+    "gulp-typescript": "^3.1.6",
+    "run-sequence": "^1.2.2",
+    "typescript": "^2.2.2"
+  }
 }

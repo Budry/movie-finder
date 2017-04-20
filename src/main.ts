@@ -7,14 +7,14 @@
  * file that was distributed with this source code.
  */
 
-import {app, BrowserWindow} from 'electron'
+import {app, BrowserWindow, screen} from 'electron'
 import {join} from 'path'
 import * as url from 'url'
 
 let mainWindow: Electron.BrowserWindow = null;
 
 const createWindow = () => {
-    mainWindow = new BrowserWindow({width: 800, height: 600});
+    mainWindow = new BrowserWindow(screen.getPrimaryDisplay().workArea);
     mainWindow.loadURL(url.format({
         pathname: join(__dirname, '../statics/index.html'),
         protocol: 'file:',

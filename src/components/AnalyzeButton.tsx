@@ -8,15 +8,33 @@
  */
 
 import * as React from 'react'
+import {connect} from "react-redux";
+import {Dispatch} from "redux"
+import updateMovies, {UpdateMoviesAction} from "../actions/updateMovies";
+import * as electron from 'electron'
 
-class AnalyzeButton extends React.Component<void, void> {
+const Dialog = electron.remote.require('electron').dialog;
+
+interface AnalyzeButtonProps {
+    dispatch: Dispatch<UpdateMoviesAction>;
+}
+
+class AnalyzeButton extends React.Component<AnalyzeButtonProps, void> {
+
+    handleClick(e) {
+        e.preventDefault();
+        const directory = Dialog.showOpenDialog({
+            properties: ['openDirectory']
+        });
+        this.props.dispatch(updateMovies(directory[0]))
+    }
 
     render() {
         return (
-            <a href=""><i className="fa fa-folder-open" /> Analyzovat složku</a>
+            <a href="" onClick={this.handleClick.bind(this)}><i className="fa fa-folder-open" /> Analyzovat složku</a>
         )
     }
 
 }
 
-export default AnalyzeButton
+export default connect()(AnalyzeButton)

@@ -8,59 +8,31 @@
  */
 
 import * as React from 'react'
+import {connect} from "react-redux";
+import {MovieRecord} from "../reducers/moviesReducer";
 
-class ResultsBox extends React.Component<void, void> {
+interface ResultsBoxProps {
+    movies: MovieRecord[]
+}
+
+class ResultsBox extends React.Component<ResultsBoxProps, void> {
 
     render() {
         return (
             <ul className="results-box">
-                <li>File.php</li>
-                <li>File.php</li>
-                <li>File.php</li>
-                <li>File.php</li>
-                <li>File.php</li>
-                <li>File.php</li>
-                <li>File.php</li>
-                <li>File.php</li>
-                <li>File.php</li>
-                <li>File.php</li>
-                <li>File.php</li>
-                <li>File.php</li>
-                <li>File.php</li>
-                <li>File.php</li>
-                <li>File.php</li>
-                <li>File.php</li>
-                <li>File.php</li>
-                <li>File.php</li>
-                <li>File.php</li>
-                <li>File.php</li>
-                <li>File.php</li>
-                <li>File.php</li>
-                <li>File.php</li>
-                <li>File.php</li>
-                <li>File.php</li>
-                <li>File.php</li>
-                <li>File.php</li>
-                <li>File.php</li>
-                <li>File.php</li>
-                <li>File.php</li>
-                <li>File.php</li>
-                <li>File.php</li>
-                <li>File.php</li>
-                <li>File.php</li>
-                <li>File.php</li>
-                <li>File.php</li>
-                <li>File.php</li>
-                <li>File.php</li>
-                <li>File.php</li>
-                <li>File.php</li>
-                <li>File.php</li>
-                <li>File.php</li>
-                <li>File.php</li>
+                {this.props.movies.map((item: MovieRecord, index: number) => {
+                        return <li key={index}>{item.name}</li>
+                })}
             </ul>
         )
     }
 
 }
 
-export default ResultsBox
+const mapStateToProps = (state) => {
+    return {
+        movies: state.movies
+    }
+};
+
+export default connect(mapStateToProps)(ResultsBox)

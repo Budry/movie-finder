@@ -17,6 +17,7 @@
   "private": true,
   "homepage": "https://bitbucket.org/Budry/movie-finder#readme",
   "dependencies": {
+    "classnames": "^2.2.5",
     "electron": "^1.6.5",
     "mime-types": "^2.1.15",
     "react": "^15.5.4",

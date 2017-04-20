@@ -27,6 +27,16 @@
       background-color: #cb2530;
       color: #ffffff;
       text-decoration: none;
+
+      &.disabled {
+        cursor: default;
+        background-color: #e1e1e1;
+        color: #000000;
+        &:hover {
+          background-color: #e1e1e1;
+        }
+      }
+
       &:hover {
         background-color: darken(#cb2530, 10%);
       }

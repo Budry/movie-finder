@@ -8,15 +8,60 @@
  */
 
 import * as React from 'react'
+import * as electron from 'electron'
+import {connect} from "react-redux";
+import * as cx from 'classnames'
+import {MovieRecord} from "../reducers/moviesReducer";
+import {writeFile} from "fs";
+import {EOL} from "os";
 
-class ExportButton extends React.Component<void, void> {
+const Dialog = electron.remote.require('electron').dialog;
+
+interface ExportButtonProps {
+    movies: MovieRecord[]
+}
+
+interface ExportButtonState {
+    disabled: boolean
+}
+
+class ExportButton extends React.Component<ExportButtonProps, ExportButtonState> {
+
+    state = {
+        disabled: true
+    };
+
+    componentWillReceiveProps(nextProps: ExportButtonProps) {
+        this.setState({disabled: nextProps.movies.length === 0})
+    }
+
+    handleClick(e) {
+        e.preventDefault();
+        if (!this.state.disabled) {
+            const target = Dialog.showSaveDialog();
+            if (target !== null) {
+                const data = this.props.movies.map((item: MovieRecord) => {
+                    return item.name
+                }).join(EOL);
+                writeFile(target, data, 'utf-8')
+            }
+        }
+    }
 
     render() {
         return (
-            <a href=""><i className="fa fa-download" /> Export</a>
+            <a href="" onClick={this.handleClick.bind(this)} className={cx({disabled: this.state.disabled})}>
+                <i className="fa fa-download" /> Export
+            </a>
         )
     }
 
 }
 
-export default ExportButton
+const mapStateToProps = (state) => {
+    return {
+        movies: state.movies
+    }
+};
+
+export default connect(mapStateToProps)(ExportButton)

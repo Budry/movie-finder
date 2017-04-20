@@ -1,0 +1,17 @@
+{
+  "name": "movie-finder",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/Budry/movie-finder.git"
+  },
+  "author": "Ondřej Zráuba <info@zaruba-ondrej.cz> (https://zaruba-ondrej.cz)",
+  "license": "UNLICENSED",
+  "private": true,
+  "homepage": "https://bitbucket.org/Budry/movie-finder#readme"
+}

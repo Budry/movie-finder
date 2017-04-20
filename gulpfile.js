@@ -10,6 +10,8 @@
 const gulp = require('gulp');
 const typescript = require('gulp-typescript');
 const runSequence = require('run-sequence');
+const less = require('gulp-less');
+const rename = require('gulp-rename');
 
 const tsProject = typescript.createProject('tsconfig.json');
 
@@ -19,16 +21,26 @@ gulp.task('typescript', () => {
         .pipe(gulp.dest('./build'))
 });
 
+gulp.task('styles', () => {
+    return gulp.src('assets/styles/bootstrap.less')
+        .pipe(less())
+        .pipe(rename('app.css'))
+        .pipe(gulp.dest('public'))
+});
+
 gulp.task('watch', () => {
     gulp.watch('src/**/*', () => {
         runSequence('typescript');
-    })
+    });
+    gulp.watch('assets/styles/**/*', () => {
+        runSequence('styles');
+    });
 });
 
 gulp.task('default', () => {
-    runSequence('typescript', 'watch')
+    runSequence(['typescript', 'styles'], 'watch')
 });
 
 gulp.task('build', () => {
-    runSequence('typescript');
+    runSequence(['typescript', 'styles']);
 });

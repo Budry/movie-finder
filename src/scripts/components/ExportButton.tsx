@@ -41,20 +41,21 @@ class ExportButton extends React.Component<ExportButtonProps, ExportButtonState>
     handleClick(e) {
         e.preventDefault();
         if (!this.state.disabled) {
-            const defaultExportFileName = `movie-finder-export${platform() === 'win32' ? '.txt' : ''}`;
+            const defaultExportFileName = 'movie-finder-export';
+
+            const filters = [];
+            if (platform() === 'win32') {
+                filters.push({name: 'Textové soubory', extensions: ['txt']})
+            }
+            filters.push({name: 'Všechny soubory', extensions: ['*']});
+
             let target = Dialog.showSaveDialog({
                 title: defaultExportFileName,
                 defaultPath: join(homedir(), defaultExportFileName),
                 properties: ['openFile', 'createDirectory'],
-                filters: [
-                    {name: 'Textové soubory', extensions: ['txt']},
-                    {name: 'Všechny soubory', extensions: ['*']}
-                ]
+                filters: filters
             });
             if (target) {
-                if (platform() === 'win32') {
-                    target = `${target}.txt`
-                }
                 this.setState({loading: true});
                 const data = this.props.movies.items.map((item: string) => {
                     return item;

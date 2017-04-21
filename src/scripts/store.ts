@@ -13,6 +13,4 @@ import nodeFsMiddleware from "./middlewares/nodeFsMiddleware";
 
 const store = createStore(reducers, applyMiddleware(nodeFsMiddleware));
 
-store.subscribe(() => {console.log(store.getState())});
-
 export default store;

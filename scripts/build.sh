@@ -15,11 +15,23 @@ cd ${BUILD_DIR}
 yarn install --production
 
 ${APP_ROOT_DIR}/node_modules/.bin/electron-packager ${BUILD_DIR} MovieFinder \
-    --platform "darwin,linux,win32" \
+    --platform "darwin,linux" \
     --arch "ia32,x64,armv7l" \
     --overwrite \
     --out=${DISTRIBUTION_DIR} \
     --icon=${BUILD_DIR}/assets/images/icon.ico
+
+${APP_ROOT_DIR}/node_modules/.bin/electron-packager ${BUILD_DIR} MovieFinder \
+    --platform "win32" \
+    --arch "ia32,x64,armv7l" \
+    --overwrite \
+    --out=${DISTRIBUTION_DIR} \
+    --icon=${BUILD_DIR}/assets/images/icon.ico \
+    --win32metadata.CompanyName="Ondřej Záruba <info@zaruba-ondrej.cz>" \
+    --win32metadata.FileDescription="Simple app for find movies in directory" \
+    --win32metadata.OriginalFilename="MovieFinder.exe" \
+    --win32metadata.ProductName="MovieFinder" \
+    --win32metadata.InternalName="MovieFinder" \
 
 cd ${DISTRIBUTION_DIR}
 

@@ -40,6 +40,9 @@ gulp.task('watch', () => {
     gulp.watch('src/assets/styles/**/*', () => {
         runSequence('styles');
     });
+    gulp.watch('src/statics/**/*', () => {
+        runSequence('statics');
+    });
 });
 
 gulp.task('default', () => {

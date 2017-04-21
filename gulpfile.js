@@ -40,6 +40,11 @@ gulp.task('package', () => {
         .pipe(gulp.dest('build'))
 });
 
+gulp.task('images', () => {
+    return gulp.src('src/assets/images/**/*')
+        .pipe(gulp.dest('build/assets/images'))
+});
+
 gulp.task('watch', () => {
     gulp.watch('src/scripts/**/*', () => {
         runSequence('typescript');
@@ -53,9 +58,9 @@ gulp.task('watch', () => {
 });
 
 gulp.task('default', () => {
-    runSequence(['typescript', 'styles', 'statics', 'package'], 'watch')
+    runSequence(['typescript', 'styles', 'statics', 'package', 'images'], 'watch')
 });
 
 gulp.task('build', () => {
-    runSequence(['typescript', 'styles', 'statics', 'package']);
+    runSequence(['typescript', 'styles', 'statics', 'package', 'images']);
 });

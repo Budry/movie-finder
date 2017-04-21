@@ -23,7 +23,7 @@ const createWindow = () => {
     mainWindow.setMenu(null);
 
     // Open the DevTools.
-    if (process.env.NODE_ENV !== 'production') {
+    if (process.env.NODE_ENV === 'develop') {
         mainWindow.webContents.openDevTools();
     }
 

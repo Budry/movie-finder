@@ -2,7 +2,7 @@
   "name": "movie-finder",
   "version": "0.1.0",
   "description": "",
-  "main": "./build/main.js",
+  "main": "./build/scripts/main.js",
   "scripts": {
     "electron": "electron .",
     "tsc": "tsc",

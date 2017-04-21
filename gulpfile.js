@@ -16,31 +16,36 @@ const rename = require('gulp-rename');
 const tsProject = typescript.createProject('tsconfig.json');
 
 gulp.task('typescript', () => {
-    return gulp.src('src/**/*')
+    return gulp.src('src/scripts/**/*')
         .pipe(tsProject())
-        .pipe(gulp.dest('./build'))
+        .pipe(gulp.dest('./build/scripts'))
 });
 
 gulp.task('styles', () => {
-    return gulp.src('assets/styles/bootstrap.less')
+    return gulp.src('src/assets/styles/bootstrap.less')
         .pipe(less())
         .pipe(rename('app.css'))
-        .pipe(gulp.dest('public'))
+        .pipe(gulp.dest('./build/assets/styles'))
+});
+
+gulp.task('statics', () => {
+    return gulp.src('src/statics/**/*')
+        .pipe(gulp.dest('./build/statics'))
 });
 
 gulp.task('watch', () => {
-    gulp.watch('src/**/*', () => {
+    gulp.watch('src/scripts/**/*', () => {
         runSequence('typescript');
     });
-    gulp.watch('assets/styles/**/*', () => {
+    gulp.watch('src/assets/styles/**/*', () => {
         runSequence('styles');
     });
 });
 
 gulp.task('default', () => {
-    runSequence(['typescript', 'styles'], 'watch')
+    runSequence(['typescript', 'styles', 'statics'], 'watch')
 });
 
 gulp.task('build', () => {
-    runSequence(['typescript', 'styles']);
+    runSequence(['typescript', 'styles', 'statics']);
 });

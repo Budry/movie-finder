@@ -14,8 +14,7 @@
     "url": "git+ssh://git@github.com:Budry/movie-finder.git"
   },
   "author": "Ondřej Zráuba <info@zaruba-ondrej.cz> (https://zaruba-ondrej.cz)",
-  "license": "UNLICENSED",
-  "private": true,
+  "license": "MIT",
   "homepage": "https://github.com/Budry/movie-finder#readme",
   "dependencies": {
     "bluebird": "^3.5.0",

@@ -13,7 +13,8 @@ import {connect, MapStateToProps} from "react-redux";
 import * as cx from 'classnames'
 import {MovieRecord} from "../reducers/moviesReducer";
 import {writeFile} from "fs";
-import {EOL} from "os";
+import {EOL, homedir, platform} from "os";
+import {join} from "path";
 
 const Dialog = electron.remote.require('electron').dialog;
 
@@ -40,13 +41,25 @@ class ExportButton extends React.Component<ExportButtonProps, ExportButtonState>
     handleClick(e) {
         e.preventDefault();
         if (!this.state.disabled) {
-            const target = Dialog.showSaveDialog();
-            if (target !== null) {
+            const defaultExportFileName = `movie-finder-export${platform() === 'win32' ? '.txt' : ''}`;
+            let target = Dialog.showSaveDialog({
+                title: defaultExportFileName,
+                defaultPath: join(homedir(), defaultExportFileName),
+                properties: ['openFile', 'createDirectory'],
+                filters: [
+                    {name: 'Textové soubory', extensions: ['txt']},
+                    {name: 'Všechny soubory', extensions: ['*']}
+                ]
+            });
+            if (target) {
+                if (platform() === 'win32') {
+                    target = `${target}.txt`
+                }
                 this.setState({loading: true});
                 const data = this.props.movies.map((item: MovieRecord) => {
                     return item.name
                 }).join(EOL);
-                writeFile(target, data, (err) => {
+                writeFile(target, data, () => {
                     this.setState({loading: false});
                 });
             }

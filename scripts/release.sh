@@ -19,3 +19,4 @@ sh ${BASEPATH}/build.sh
 sed -i -- "s/\"version\": \".*\"/\"version\": \"${VERSION}\"/g" ${BASEPATH}/../package.json
 git tag -a "v${VERSION}" -m "Released version ${VERSION}"
 git add package.json
+git commit -m "Released version ${VERSION}"

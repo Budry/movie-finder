@@ -1,7 +1,7 @@
 {
   "name": "movie-finder",
   "version": "0.1.0",
-  "description": "",
+  "description": "Simple app for find movies in directory",
   "main": "./build/scripts/main.js",
   "types": "./index.d.ts",
   "scripts": {
@@ -11,12 +11,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/Budry/movie-finder.git"
+    "url": "git+ssh://git@github.com:Budry/movie-finder.git"
   },
   "author": "Ondřej Zráuba <info@zaruba-ondrej.cz> (https://zaruba-ondrej.cz)",
   "license": "UNLICENSED",
   "private": true,
-  "homepage": "https://bitbucket.org/Budry/movie-finder#readme",
+  "homepage": "https://github.com/Budry/movie-finder#readme",
   "dependencies": {
     "bluebird": "^3.5.0",
     "classnames": "^2.2.5",

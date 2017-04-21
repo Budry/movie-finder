@@ -17,6 +17,7 @@
   "private": true,
   "homepage": "https://bitbucket.org/Budry/movie-finder#readme",
   "dependencies": {
+    "bluebird": "^3.5.0",
     "classnames": "^2.2.5",
     "electron": "^1.6.5",
     "mime-types": "^2.1.15",
@@ -26,6 +27,7 @@
     "redux": "^3.6.0"
   },
   "devDependencies": {
+    "@types/bluebird": "^3.5.2",
     "@types/electron": "^1.4.37",
     "@types/mime-types": "^2.1.0",
     "@types/react": "^15.0.22",

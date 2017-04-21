@@ -18,7 +18,7 @@ const getMovies = (path): ThunkAction<Promise<any>, void, void> => {
     return (dispatch) => {
         return new Promise((resolve) => {
             readdir(path, (err, files) => {
-                files.filter((item: string) => {
+                files = files.filter((item: string) => {
                     return lookup(join(path, item)).toString().match(/^video\/.*$/) !== null
                 });
                 dispatch(updateMovies({

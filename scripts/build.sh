@@ -15,12 +15,12 @@ cd ${BUILD_DIR}
 yarn install --production
 
 ${APP_ROOT_DIR}/node_modules/.bin/electron-packager ${BUILD_DIR} MovieFinder \
-    --platform "linux" \
+    --platform "win32" \
     --arch "x64" \
     --overwrite \
-    --out=${DISTRIBUTION_DIR}
+    --out=${DISTRIBUTION_DIR} \
+    --icon=${BUILD_DIR}/assets/images/icon.ico
 
-:
 for DISTRIBUTION in "${DISTRIBUTION_DIR}"/*
 do
     FILENAME=$(basename ${DISTRIBUTION})

@@ -14,7 +14,16 @@ import * as url from 'url'
 let mainWindow: Electron.BrowserWindow = null;
 
 const createWindow = () => {
-    mainWindow = new BrowserWindow(screen.getPrimaryDisplay().workArea);
+
+    const windowOptions = {
+        icon: join(__dirname, '../assets/images/icon.png'),
+        x: screen.getPrimaryDisplay().workArea.x,
+        y: screen.getPrimaryDisplay().workArea.y,
+        width: screen.getPrimaryDisplay().workArea.width,
+        height: screen.getPrimaryDisplay().workArea.height
+    };
+
+    mainWindow = new BrowserWindow(windowOptions);
     mainWindow.loadURL(url.format({
         pathname: join(__dirname, '../statics/index.html'),
         protocol: 'file:',

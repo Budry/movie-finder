@@ -15,15 +15,15 @@ cd ${BUILD_DIR}
 yarn install --production
 
 ${APP_ROOT_DIR}/node_modules/.bin/electron-packager ${BUILD_DIR} MovieFinder \
-    --platform "darwin,linux" \
-    --arch "ia32,x64,armv7l" \
+    --platform "linux" \
+    --arch "ia32,x64" \
     --overwrite \
     --out=${DISTRIBUTION_DIR} \
     --icon=${BUILD_DIR}/assets/images/icon.ico
 
 ${APP_ROOT_DIR}/node_modules/.bin/electron-packager ${BUILD_DIR} MovieFinder \
     --platform "win32" \
-    --arch "ia32,x64,armv7l" \
+    --arch "ia32,x64" \
     --overwrite \
     --out=${DISTRIBUTION_DIR} \
     --icon=${BUILD_DIR}/assets/images/icon.ico \

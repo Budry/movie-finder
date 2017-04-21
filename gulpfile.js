@@ -12,6 +12,7 @@ const typescript = require('gulp-typescript');
 const runSequence = require('run-sequence');
 const less = require('gulp-less');
 const rename = require('gulp-rename');
+const replace = require('gulp-replace');
 
 const tsProject = typescript.createProject('tsconfig.json');
 
@@ -33,6 +34,12 @@ gulp.task('statics', () => {
         .pipe(gulp.dest('./build/statics'))
 });
 
+gulp.task('package', () => {
+    return gulp.src('package.json')
+        .pipe(replace(/\.\/build\/scripts\/main\.js/g, './scripts/main.js'))
+        .pipe(gulp.dest('build'))
+});
+
 gulp.task('watch', () => {
     gulp.watch('src/scripts/**/*', () => {
         runSequence('typescript');
@@ -46,9 +53,9 @@ gulp.task('watch', () => {
 });
 
 gulp.task('default', () => {
-    runSequence(['typescript', 'styles', 'statics'], 'watch')
+    runSequence(['typescript', 'styles', 'statics', 'package'], 'watch')
 });
 
 gulp.task('build', () => {
-    runSequence(['typescript', 'styles', 'statics']);
+    runSequence(['typescript', 'styles', 'statics', 'package']);
 });

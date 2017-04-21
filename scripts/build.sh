@@ -1,29 +1,26 @@
 #!/bin/sh
 
-BASEDIR=$(dirname $0)
+BASEDIR=$(dirname "$(pwd)/$0")
 
 DISTRIBUTION_DIR=${BASEDIR}/../distribution
-IGNORE_LIST="\.\/src|scripts|.git|.gitignore|.idea|gulpfile.js|tsconfig.json|yarn.lock"
+BUILD_DIR=${BASEDIR}/../build
+APP_ROOT_DIR=${BASEDIR}/../
 
-rm build/ -rf
+rm ${BUILD_DIR}/ -rf
 rm ${DISTRIBUTION_DIR} -rf
 
 yarn run gulp build
 
-${BASEDIR}/../node_modules/.bin/electron-packager ${BASEDIR}/../ MovieFinder \
-    --platform "linux,darwin,win32,mas" \
-    --arch "x64,ia32,armv7l" \
-    --overwrite \
-    --out=${DISTRIBUTION_DIR} \
-    --ignore=scripts \
-    --ignore=.git \
-    --ignore=.gitignore \
-    --ignore=.idea \
-    --ignore=gulpfile.js \
-    --ignore=tsconfig.json \
-    --ignore=yarn.lock \
-    --ignore=src
+cd ${BUILD_DIR}
+yarn install --production
 
+${APP_ROOT_DIR}/node_modules/.bin/electron-packager ${BUILD_DIR} MovieFinder \
+    --platform "linux" \
+    --arch "x64" \
+    --overwrite \
+    --out=${DISTRIBUTION_DIR}
+
+:
 for DISTRIBUTION in "${DISTRIBUTION_DIR}"/*
 do
     FILENAME=$(basename ${DISTRIBUTION})

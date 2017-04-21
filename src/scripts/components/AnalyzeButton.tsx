@@ -38,8 +38,8 @@ class AnalyzeButton extends React.Component<AnalyzeButtonProps, AnalyzeButtonSta
             });
             if (directory) {
                 this.setState({loading: true});
-                this.props.getMovies(directory[0]).then(() => {
-                    console.log('ok');
+                this.props.getMovies(directory[0]).finally(() => {
+                    this.setState({loading: false});
                 })
             }
         }

@@ -8,11 +8,22 @@
  */
 
 import * as React from 'react'
+import * as Promise from 'bluebird'
 import MenuBar from "./MenuBar";
 import ResultsBox from "./ResultsBox";
 import ActualDirectoryBox from "./ActualDirectoryBox";
+import {connect, Dispatch} from "react-redux";
+import loadLastMovies from "../actions/loadLastMovies";
 
-class App extends React.Component<void, void> {
+interface AppProps {
+    loadLastMovies: () => Promise<void>
+}
+
+class App extends React.Component<AppProps, void> {
+
+    componentDidMount() {
+        this.props.loadLastMovies()
+    }
 
     render() {
         return (
@@ -26,4 +37,12 @@ class App extends React.Component<void, void> {
 
 }
 
-export default App;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        loadLastMovies: () => {
+            return dispatch(loadLastMovies())
+        }
+    }
+};
+
+export default connect(null, mapDispatchToProps)(App);

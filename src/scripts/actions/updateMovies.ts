@@ -7,21 +7,46 @@
  * file that was distributed with this source code.
  */
 
-import {NODE_FS_ACTION_TYPE, NodeFsAction} from "../middlewares/nodeFsMiddleware";
-
-export const UPDATE_MOVIES = 'UPDATE_MOVIES';
+import {MoviesState} from "../reducers/moviesReducer";
+import {UPDATE_MOVIES_ACTION_TYPE} from "../constants";
 
 export interface UpdateMoviesAction {
-    (path: string): NodeFsAction
+    type: string,
+    movies: MoviesState
 }
 
-const updateMovies = (path: string): NodeFsAction => {
+const updateMovies = (movies: MoviesState): UpdateMoviesAction => {
     return {
-        type: NODE_FS_ACTION_TYPE,
-        targetType: UPDATE_MOVIES,
-        action: 'readdir',
-        args: [path]
+        type: UPDATE_MOVIES_ACTION_TYPE,
+        movies: movies
     }
 };
 
 export default updateMovies;
+
+
+
+
+
+/*
+import {MoviesState} from "../reducers/moviesReducer";
+
+export const UPDATE_MOVIES = 'UPDATE_MOVIES';
+
+export interface UpdateMoviesAction {
+    type: string,
+    movies: MoviesState
+}
+
+export interface UpdateMovies {
+    (movies: MoviesState): void
+}
+
+export const updateMovies = (movies: MoviesState): UpdateMoviesAction => {
+    return {
+        type: UPDATE_MOVIES,
+        movies: movies
+    }
+};
+
+export const updateMoviesByPath = (path) => {};*/

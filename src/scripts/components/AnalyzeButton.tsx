@@ -8,17 +8,16 @@
  */
 
 import * as React from 'react'
-import {connect} from "react-redux";
-import {Dispatch} from "redux"
-import updateMovies, {UpdateMoviesAction} from "../actions/updateMovies";
+import * as Promise from 'bluebird'
+import {connect, Dispatch} from "react-redux";
 import * as electron from 'electron'
 import * as cx from 'classnames'
-import {NodeFsResultAction} from "../middlewares/nodeFsMiddleware";
+import getMovies from "../actions/getMovies";
 
 const Dialog = electron.remote.require('electron').dialog;
 
 interface AnalyzeButtonProps {
-    updateMovies: Dispatch<Promise<NodeFsResultAction>>
+    getMovies: (path: string) => Promise<any>
 }
 
 interface AnalyzeButtonState {
@@ -39,8 +38,8 @@ class AnalyzeButton extends React.Component<AnalyzeButtonProps, AnalyzeButtonSta
             });
             if (directory) {
                 this.setState({loading: true});
-                this.props.updateMovies(directory[0]).then(() => {
-                    this.setState({loading: false});
+                this.props.getMovies(directory[0]).then(() => {
+                    console.log('ok');
                 })
             }
         }
@@ -59,10 +58,10 @@ class AnalyzeButton extends React.Component<AnalyzeButtonProps, AnalyzeButtonSta
 
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch: Dispatch<any>) => {
     return {
-        updateMovies: (path): Promise<NodeFsResultAction> => {
-            return dispatch(updateMovies(path))
+        getMovies: (path: string) => {
+            return dispatch(getMovies(path))
         }
     }
 };

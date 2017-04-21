@@ -9,17 +9,17 @@
 
 import * as React from 'react'
 import * as electron from 'electron'
-import {connect, MapStateToProps} from "react-redux";
+import {connect} from "react-redux";
 import * as cx from 'classnames'
-import {MovieRecord} from "../reducers/moviesReducer";
 import {writeFile} from "fs";
 import {EOL, homedir, platform} from "os";
 import {join} from "path";
+import {MoviesState} from "../reducers/moviesReducer";
 
 const Dialog = electron.remote.require('electron').dialog;
 
 interface ExportButtonProps {
-    movies: MovieRecord[]
+    movies: MoviesState
 }
 
 interface ExportButtonState {
@@ -35,7 +35,7 @@ class ExportButton extends React.Component<ExportButtonProps, ExportButtonState>
     };
 
     componentWillReceiveProps(nextProps: ExportButtonProps) {
-        this.setState({disabled: nextProps.movies.length === 0})
+        this.setState({disabled: nextProps.movies.items.length === 0})
     }
 
     handleClick(e) {
@@ -56,8 +56,8 @@ class ExportButton extends React.Component<ExportButtonProps, ExportButtonState>
                     target = `${target}.txt`
                 }
                 this.setState({loading: true});
-                const data = this.props.movies.map((item: MovieRecord) => {
-                    return item.name
+                const data = this.props.movies.items.map((item: string) => {
+                    return item;
                 }).join(EOL);
                 writeFile(target, data, () => {
                     this.setState({loading: false});

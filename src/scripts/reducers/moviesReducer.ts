@@ -8,42 +8,27 @@
  */
 
 import {Action} from 'redux'
-import {UPDATE_MOVIES} from "../actions/updateMovies";
-import {NodeFsResultAction} from "../middlewares/nodeFsMiddleware";
-import {join} from "path";
-import {lookup} from 'mime-types'
-
-export interface MovieRecord {
-    path: string,
-    name: string
-}
+import {UpdateMoviesAction} from "../actions/updateMovies";
+import {LAST_MOVIES_STORAGE_KEY, UPDATE_MOVIES_ACTION_TYPE} from "../constants";
+import {set} from "electron-json-storage";
 
 export interface MoviesState {
-    data: MovieRecord[],
+    items: string[]
     directory: string
 }
 
 const initialState: MoviesState = {
-    data: [],
+    items: [],
     directory: null
 };
 
 const moviesReducer = (state: MoviesState = initialState, action: Action): MoviesState => {
 
-    if (action.type === UPDATE_MOVIES) {
-        const nodeFsResultAction = <NodeFsResultAction>action;
-
-        state = {
-            directory: nodeFsResultAction.args[0],
-            data: nodeFsResultAction.result.map((item: string) => {
-                return {
-                    path: join(nodeFsResultAction.args[0], item),
-                    name: item
-                };
-            }).filter((item: MovieRecord) => {
-                return lookup(item.path).toString().match(/^video\/.*$/) !== null
-            })
-        };
+    if (action.type === UPDATE_MOVIES_ACTION_TYPE) {
+        state = (<UpdateMoviesAction>action).movies
+        set(LAST_MOVIES_STORAGE_KEY, state, (err) => {
+            if (err) throw err;
+        });
     }
 
     return state;

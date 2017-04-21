@@ -15,14 +15,16 @@ cd ${BUILD_DIR}
 yarn install --production
 
 ${APP_ROOT_DIR}/node_modules/.bin/electron-packager ${BUILD_DIR} MovieFinder \
-    --platform "win32" \
-    --arch "x64" \
+    --platform "darwin,linux,win32" \
+    --arch "ia32,x64,armv7l" \
     --overwrite \
     --out=${DISTRIBUTION_DIR} \
     --icon=${BUILD_DIR}/assets/images/icon.ico
 
+cd ${DISTRIBUTION_DIR}
+
 for DISTRIBUTION in "${DISTRIBUTION_DIR}"/*
 do
     FILENAME=$(basename ${DISTRIBUTION})
-    zip -r ${DISTRIBUTION_DIR}/${FILENAME}.zip ${DISTRIBUTION}
+    zip -r ${FILENAME}.zip ${FILENAME}
 done

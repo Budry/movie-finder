@@ -18,21 +18,32 @@ export interface MovieRecord {
     name: string
 }
 
-const initialState: MovieRecord[] = [];
+export interface MoviesState {
+    data: MovieRecord[],
+    directory: string
+}
 
-const moviesReducer = (state: MovieRecord[] = initialState, action: Action): MovieRecord[] => {
+const initialState: MoviesState = {
+    data: [],
+    directory: null
+};
+
+const moviesReducer = (state: MoviesState = initialState, action: Action): MoviesState => {
 
     if (action.type === UPDATE_MOVIES) {
         const nodeFsResultAction = <NodeFsResultAction>action;
 
-        return nodeFsResultAction.result.map((item: string) => {
-            return {
-                path: join(nodeFsResultAction.args[0], item),
-                name: item
-            };
-        }).filter((item: MovieRecord) => {
-            return lookup(item.path).toString().match(/^video\/.*$/) !== null
-        });
+        state = {
+            directory: nodeFsResultAction.args[0],
+            data: nodeFsResultAction.result.map((item: string) => {
+                return {
+                    path: join(nodeFsResultAction.args[0], item),
+                    name: item
+                };
+            }).filter((item: MovieRecord) => {
+                return lookup(item.path).toString().match(/^video\/.*$/) !== null
+            })
+        };
     }
 
     return state;

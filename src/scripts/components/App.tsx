@@ -10,6 +10,7 @@
 import * as React from 'react'
 import MenuBar from "./MenuBar";
 import ResultsBox from "./ResultsBox";
+import ActualDirectoryBox from "./ActualDirectoryBox";
 
 class App extends React.Component<void, void> {
 
@@ -17,6 +18,7 @@ class App extends React.Component<void, void> {
         return (
             <div>
                 <MenuBar />
+                <ActualDirectoryBox />
                 <ResultsBox />
             </div>
         );

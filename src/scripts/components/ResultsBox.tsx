@@ -9,10 +9,10 @@
 
 import * as React from 'react'
 import {connect} from "react-redux";
-import {MovieRecord} from "../reducers/moviesReducer";
+import {MovieRecord, MoviesState} from "../reducers/moviesReducer";
 
 interface ResultsBoxProps {
-    movies: MovieRecord[]
+    movies: MoviesState
 }
 
 class ResultsBox extends React.Component<ResultsBoxProps, void> {
@@ -20,7 +20,7 @@ class ResultsBox extends React.Component<ResultsBoxProps, void> {
     render() {
         return (
             <ul className="results-box">
-                {this.props.movies.map((item: MovieRecord, index: number) => {
+                {this.props.movies.data.map((item: MovieRecord, index: number) => {
                         return <li key={index}>{item.name}</li>
                 })}
             </ul>

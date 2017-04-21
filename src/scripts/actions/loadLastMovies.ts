@@ -22,7 +22,6 @@ const loadLastMovies = (): ThunkAction<Promise<void>, void, void> => {
                 if (hasKey) {
                     get(LAST_MOVIES_STORAGE_KEY, (err, result: MoviesState) => {
                         if (err) return reject(err);
-                        console.log(result);
                         dispatch(updateMovies(result));
                         return resolve();
                     })

@@ -34,6 +34,7 @@
     "@types/react-dom": "^15.5.0",
     "@types/react-redux": "^4.4.39",
     "@types/redux": "^3.6.0",
+    "electron-packager": "^8.6.0",
     "gulp": "^3.9.1",
     "gulp-less": "^3.3.0",
     "gulp-rename": "^1.2.2",

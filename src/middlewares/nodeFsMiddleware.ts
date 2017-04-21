@@ -9,6 +9,7 @@
 
 import * as fs from 'fs'
 import {Action} from 'redux'
+import * as Promise from 'bluebird'
 
 export interface NodeFsAction {
     type: string,
@@ -25,21 +26,25 @@ export interface NodeFsResultAction {
 
 export const NODE_FS_ACTION_TYPE = 'NODE_FS_ACTION_TYPE';
 
-const nodeFsMiddleware = ({getState, dispatch}) => next => (action: Action) => {
-
+const nodeFsMiddleware = ({getState, dispatch}) => next => (action: Action): Promise<NodeFsResultAction> => {
     if (action.type !== NODE_FS_ACTION_TYPE) {
         return next(action)
     }
 
-    const nodeFsAction: NodeFsAction = <NodeFsAction>action;
+    return new Promise<NodeFsResultAction>((resolve, reject) => {
+        const nodeFsAction: NodeFsAction = <NodeFsAction>action;
 
-    fs[nodeFsAction.action].apply(null, [...nodeFsAction.args, (err, result) => {
-        dispatch({
-            type: nodeFsAction.targetType,
-            result: result,
-            args: nodeFsAction.args
-        })
-    }])
+        fs[nodeFsAction.action].apply(null, [...nodeFsAction.args, (err, result) => {
+            if (err) return reject(err);
+            const resultAction = {
+                type: nodeFsAction.targetType,
+                result: result,
+                args: nodeFsAction.args
+            };
+            dispatch(resultAction);
+            return resolve(resultAction)
+        }])
+    });
 };
 
 export default nodeFsMiddleware;

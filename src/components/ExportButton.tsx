@@ -9,7 +9,7 @@
 
 import * as React from 'react'
 import * as electron from 'electron'
-import {connect} from "react-redux";
+import {connect, MapStateToProps} from "react-redux";
 import * as cx from 'classnames'
 import {MovieRecord} from "../reducers/moviesReducer";
 import {writeFile} from "fs";
@@ -22,13 +22,15 @@ interface ExportButtonProps {
 }
 
 interface ExportButtonState {
-    disabled: boolean
+    disabled: boolean,
+    loading: boolean
 }
 
 class ExportButton extends React.Component<ExportButtonProps, ExportButtonState> {
 
     state = {
-        disabled: true
+        disabled: true,
+        loading: false
     };
 
     componentWillReceiveProps(nextProps: ExportButtonProps) {
@@ -40,18 +42,24 @@ class ExportButton extends React.Component<ExportButtonProps, ExportButtonState>
         if (!this.state.disabled) {
             const target = Dialog.showSaveDialog();
             if (target !== null) {
+                this.setState({loading: true});
                 const data = this.props.movies.map((item: MovieRecord) => {
                     return item.name
                 }).join(EOL);
-                writeFile(target, data, 'utf-8')
+                writeFile(target, data, (err) => {
+                    this.setState({loading: false});
+                });
             }
         }
     }
 
     render() {
         return (
-            <a href="" onClick={this.handleClick.bind(this)} className={cx({disabled: this.state.disabled})}>
-                <i className="fa fa-download" /> Export
+            <a href="" onClick={this.handleClick.bind(this)} className={cx({disabled: this.state.disabled || this.state.loading})}>
+                {this.state.loading
+                    ? (<span><i className="fa fa-spinner"/> Export</span>)
+                    : (<span><i className="fa fa-download"/> Export</span>)
+                }
             </a>
         )
     }

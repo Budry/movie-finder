@@ -11,9 +11,6 @@ rm ${DISTRIBUTION_DIR} -rf
 
 yarn run gulp build
 
-cd ${BUILD_DIR}
-yarn install --production
-
 ${APP_ROOT_DIR}/node_modules/.bin/electron-packager ${BUILD_DIR} MovieFinder \
     --platform "linux" \
     --arch "ia32,x64" \
@@ -33,10 +30,12 @@ ${APP_ROOT_DIR}/node_modules/.bin/electron-packager ${BUILD_DIR} MovieFinder \
     --win32metadata.ProductName="MovieFinder" \
     --win32metadata.InternalName="MovieFinder" \
 
-cd ${DISTRIBUTION_DIR}
+if [ "$1" = "--with-pack" ]; then
+    cd ${DISTRIBUTION_DIR}
 
-for DISTRIBUTION in "${DISTRIBUTION_DIR}"/*
-do
-    FILENAME=$(basename ${DISTRIBUTION})
-    zip -r ${FILENAME}.zip ${FILENAME}
-done
+    for DISTRIBUTION in "${DISTRIBUTION_DIR}"/*
+    do
+        FILENAME=$(basename ${DISTRIBUTION})
+        zip -r ${FILENAME}.zip ${FILENAME}
+    done
+fi

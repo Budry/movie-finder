@@ -13,19 +13,28 @@ import {lookup} from "mime-types";
 import * as Promise from 'bluebird'
 import updateMovies from "./updateMovies";
 import {ThunkAction} from "redux-thunk";
+import {MovieItem} from "../reducers/moviesReducer";
+import {statSync} from "fs";
 
 const getMovies = (path): ThunkAction<Promise<any>, void, void> => {
     return (dispatch) => {
         return new Promise((resolve) => {
             readdir(path, (err, files) => {
-                files = files.filter((item: string) => {
+                const items: MovieItem[] = files.filter((item: string) => {
                     return lookup(join(path, item)).toString().match(/^video\/.*$/) !== null
                 }).map((item) => {
-                    return basename(item);
+                    return {
+                        name: basename(item),
+                        lastUpdated: statSync(item).mtime.getTime()
+                    }
                 });
                 dispatch(updateMovies({
                     directory: path,
-                    items: files
+                    items: items,
+                    sort: {
+                        column: 'name',
+                        reverse: false
+                    }
                 }));
                 resolve()
             });

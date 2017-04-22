@@ -14,7 +14,7 @@ import * as cx from 'classnames'
 import {writeFile} from "fs";
 import {EOL, homedir, platform} from "os";
 import {join} from "path";
-import {MoviesState} from "../reducers/moviesReducer";
+import {MovieItem, MoviesState} from "../reducers/moviesReducer";
 import {Dispatch} from "redux";
 import updateLoadingState from "../actions/updateLoadingState";
 
@@ -61,8 +61,8 @@ class ExportButton extends React.Component<ExportButtonProps, ExportButtonState>
             if (target) {
                 this.props.updateLoadingState(true);
                 this.setState({loading: true});
-                const data = this.props.movies.items.map((item: string) => {
-                    return item;
+                const data = this.props.movies.items.map((item: MovieItem) => {
+                    return item.name;
                 }).join(EOL);
                 writeFile(target, data, () => {
                     this.setState({loading: false});

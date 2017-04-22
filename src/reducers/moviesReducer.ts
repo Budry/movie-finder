@@ -8,24 +8,49 @@
  */
 
 import {Action} from 'redux'
+import * as merge from 'object-merge'
 import {UpdateMoviesAction} from "../actions/updateMovies";
-import {LAST_MOVIES_STORAGE_KEY, UPDATE_MOVIES_ACTION_TYPE} from "../constants";
+import {
+    LAST_MOVIES_STORAGE_KEY, UPDATE_MOVIES_ACTION_TYPE,
+    UPDATE_MOVIES_SORT_ACTION_TYPE
+} from "../constants";
 import {set} from "electron-json-storage";
+import {UpdateMovieSortAction} from "../actions/updateMoviesSort";
+
+export interface MovieItem {
+    name: string,
+    lastUpdated: number
+}
+
+export interface MoviesSort {
+    reverse: boolean,
+    column: string
+}
 
 export interface MoviesState {
-    items: string[]
-    directory: string
+    directory: string,
+    items: MovieItem[]
+    sort: MoviesSort
 }
 
 const initialState: MoviesState = {
     items: [],
-    directory: null
+    directory: null,
+    sort: {
+        reverse: false,
+        column: 'name'
+    }
 };
 
 const moviesReducer = (state: MoviesState = initialState, action: Action): MoviesState => {
 
     if (action.type === UPDATE_MOVIES_ACTION_TYPE) {
-        state = (<UpdateMoviesAction>action).movies
+        state = (<UpdateMoviesAction>action).movies;
+        set(LAST_MOVIES_STORAGE_KEY, state, (err) => {
+            if (err) throw err;
+        });
+    } else if (action.type === UPDATE_MOVIES_SORT_ACTION_TYPE) {
+        state = merge({}, state, {sort: (<UpdateMovieSortAction>action).sort});
         set(LAST_MOVIES_STORAGE_KEY, state, (err) => {
             if (err) throw err;
         });

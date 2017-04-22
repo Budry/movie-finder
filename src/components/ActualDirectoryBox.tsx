@@ -9,9 +9,10 @@
 
 import * as React from 'react'
 import {connect} from "react-redux";
+import {MoviesState} from "../reducers/moviesReducer";
 
 interface ActualDirectoryBoxProps {
-    directory: string
+    movies: MoviesState
 }
 
 class ActualDirectoryBox extends React.Component<ActualDirectoryBoxProps, void> {
@@ -19,7 +20,8 @@ class ActualDirectoryBox extends React.Component<ActualDirectoryBoxProps, void> 
     render() {
         return (
             <div className="actual-directory-box">
-                <strong>Aktuálně vybraná složka:</strong> {this.props.directory}
+                <p><strong>Počet souborů: </strong> {this.props.movies.items.length}</p>
+                <p><strong>Aktuálně vybraná složka:</strong> {this.props.movies.directory}</p>
             </div>
         )
     }
@@ -28,7 +30,7 @@ class ActualDirectoryBox extends React.Component<ActualDirectoryBoxProps, void> 
 
 const mapStateToProps = (state) => {
     return {
-        directory: state.movies.directory
+        movies: state.movies
     }
 };
 

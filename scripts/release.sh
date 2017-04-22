@@ -18,3 +18,5 @@ sed -i -- "s/\"version\": \".*\"/\"version\": \"${VERSION}\"/g" ${BASEPATH}/../p
 git tag -a "v${VERSION}" -m "Released version ${VERSION}"
 git add package.json
 git commit -m "Released version ${VERSION}"
+git push origin "v${VERSION}"
+git log --oneline --decorate --color

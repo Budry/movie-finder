@@ -24,7 +24,6 @@ const createWindow = () => {
     };
 
     mainWindow = new BrowserWindow(windowOptions);
-    console.log(__dirname);
     mainWindow.loadURL(url.format({
         pathname: join(__dirname, '../statics/index.html'),
         protocol: 'file:',

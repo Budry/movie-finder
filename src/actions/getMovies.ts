@@ -7,7 +7,8 @@
  * file that was distributed with this source code.
  */
 
-import {readdir} from "fs";
+import * as readdir from 'recursive-readdir'
+//import {readdir} from "fs";
 import {join} from "path";
 import {lookup} from "mime-types";
 import * as Promise from 'bluebird'

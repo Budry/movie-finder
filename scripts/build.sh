@@ -16,14 +16,14 @@ ${APP_ROOT_DIR}/node_modules/.bin/electron-packager ${BUILD_DIR} MovieFinder \
     --arch "ia32,x64" \
     --overwrite \
     --out=${DISTRIBUTION_DIR} \
-    --icon=${BUILD_DIR}/assets/images/icon.ico
+    --icon=${BUILD_DIR}/images/icon.ico \
 
 ${APP_ROOT_DIR}/node_modules/.bin/electron-packager ${BUILD_DIR} MovieFinder \
     --platform "win32" \
     --arch "ia32,x64" \
     --overwrite \
     --out=${DISTRIBUTION_DIR} \
-    --icon=${BUILD_DIR}/assets/images/icon.ico \
+    --icon=${BUILD_DIR}/images/icon.ico \
     --win32metadata.CompanyName="Ondřej Záruba <info@zaruba-ondrej.cz>" \
     --win32metadata.FileDescription="Simple app for find movies in directory" \
     --win32metadata.OriginalFilename="MovieFinder.exe" \

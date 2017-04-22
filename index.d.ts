@@ -7,5 +7,4 @@
  * file that was distributed with this source code.
  */
 
-export const LAST_MOVIES_STORAGE_KEY = 'LAST_MOVIES_STORAGE_KEY';
-export const UPDATE_MOVIES_ACTION_TYPE = `UPDATE_MOVIES_ACTION_TYPE_${VERSION}`;
+declare const VERSION: string;

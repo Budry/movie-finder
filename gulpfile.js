@@ -14,6 +14,7 @@ const rename = require('gulp-rename');
 const replace = require('gulp-replace');
 const webpack = require('webpack');
 const webpackStream = require('webpack-stream');
+const packageInfo = require('./package.json');
 
 const webpackConfig = {
     target: 'node',
@@ -33,6 +34,11 @@ const webpackConfig = {
     node: {
         __dirname: false
     },
+    plugins: [
+        new webpack.DefinePlugin({
+            VERSION: JSON.stringify(packageInfo.version),
+        })
+    ],
     externals: [
         (function () {
             var IGNORES = [

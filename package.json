@@ -2,7 +2,7 @@
   "name": "movie-finder",
   "version": "0.1.0-beta.1",
   "description": "Simple app for find movies in directory",
-  "main": "./build/scripts/main.js",
+  "main": "./build/js/main.js",
   "types": "./index.d.ts",
   "scripts": {
     "electron": "export NODE_ENV=develop && electron ./build",
@@ -37,13 +37,15 @@
     "@types/react-dom": "^15.5.0",
     "@types/react-redux": "^4.4.39",
     "@types/redux": "^3.6.0",
+    "awesome-typescript-loader": "^3.1.2",
     "electron-packager": "^8.6.0",
     "gulp": "^3.9.1",
     "gulp-less": "^3.3.0",
     "gulp-rename": "^1.2.2",
     "gulp-replace": "^0.5.4",
-    "gulp-typescript": "^3.1.6",
     "run-sequence": "^1.2.2",
-    "typescript": "^2.2.2"
+    "typescript": "^2.2.2",
+    "webpack": "^2.4.1",
+    "webpack-stream": "^3.2.0"
   }
 }

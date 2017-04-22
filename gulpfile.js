@@ -8,59 +8,99 @@
  */
 
 const gulp = require('gulp');
-const typescript = require('gulp-typescript');
 const runSequence = require('run-sequence');
 const less = require('gulp-less');
 const rename = require('gulp-rename');
 const replace = require('gulp-replace');
+const webpack = require('webpack');
+const webpackStream = require('webpack-stream');
 
-const tsProject = typescript.createProject('tsconfig.json');
+const webpackConfig = {
+    target: 'node',
+    resolve: {
+        modules: ["node_modules"],
+        extensions: [".js", ".ts", ".tsx"]
+    },
+    module: {
+        rules: [
+            {
+                test: /\.tsx?$/,
+                loader: "awesome-typescript-loader",
+                exclude: /node_modules/,
+            }
+        ]
+    },
+    node: {
+        __dirname: false
+    },
+    externals: [
+        (function () {
+            var IGNORES = [
+                'electron'
+            ];
+            return function (context, request, callback) {
+                if (IGNORES.indexOf(request) >= 0) {
+                    return callback(null, "require('" + request + "')");
+                }
+                return callback();
+            };
+        })()
+    ]
+};
 
-gulp.task('typescript', () => {
-    return gulp.src('src/scripts/**/*')
-        .pipe(tsProject())
-        .pipe(gulp.dest('./build/scripts'))
+gulp.task('scripts:main', () => {
+    return gulp.src('src/main.ts')
+        .pipe(webpackStream(webpackConfig, webpack))
+        .pipe(rename('main.js'))
+        .pipe(gulp.dest('build/js'))
+});
+
+gulp.task('scripts:app', () => {
+    return gulp.src('src/index.tsx')
+        .pipe(webpackStream(webpackConfig, webpack))
+        .pipe(rename('app.js'))
+        .pipe(gulp.dest('build/js'))
 });
 
 gulp.task('styles', () => {
-    return gulp.src('src/assets/styles/bootstrap.less')
+    return gulp.src('assets/styles/bootstrap.less')
         .pipe(less())
         .pipe(rename('app.css'))
-        .pipe(gulp.dest('./build/assets/styles'))
+        .pipe(gulp.dest('build/css'))
 });
 
 gulp.task('statics', () => {
-    return gulp.src('src/statics/**/*')
-        .pipe(gulp.dest('./build/statics'))
+    return gulp.src('statics/**/*')
+        .pipe(gulp.dest('build/statics'))
 });
 
 gulp.task('package', () => {
     return gulp.src('package.json')
-        .pipe(replace(/\.\/build\/scripts\/main\.js/g, './scripts/main.js'))
+        .pipe(replace(/\.\/build\/js\/main\.js/g, './js/main.js'))
         .pipe(gulp.dest('build'))
 });
 
 gulp.task('images', () => {
-    return gulp.src('src/assets/images/**/*')
-        .pipe(gulp.dest('build/assets/images'))
+    return gulp.src('assets/images/**/*')
+        .pipe(gulp.dest('build/images'))
 });
 
 gulp.task('watch', () => {
-    gulp.watch('src/scripts/**/*', () => {
-        runSequence('typescript');
+    gulp.watch('src/**/*', () => {
+        runSequence(['scripts:app', 'scripts:main']);
     });
-    gulp.watch('src/assets/styles/**/*', () => {
+    gulp.watch('assets/styles/**/*', () => {
         runSequence('styles');
     });
-    gulp.watch('src/statics/**/*', () => {
+    gulp.watch('statics/**/*', () => {
         runSequence('statics');
     });
 });
 
 gulp.task('default', () => {
-    runSequence(['typescript', 'styles', 'statics', 'package', 'images'], 'watch')
+    runSequence(['scripts:app', 'scripts:main', 'styles', 'statics', 'package', 'images'], 'watch')
 });
 
 gulp.task('build', () => {
-    runSequence(['typescript', 'styles', 'statics', 'package', 'images']);
+    runSequence(['scripts:app', 'scripts:main', 'styles', 'statics', 'package', 'images']);
 });

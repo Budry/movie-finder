@@ -8,7 +8,7 @@
  */
 
 import * as readdir from 'recursive-readdir'
-import {join} from "path";
+import {basename, join} from "path";
 import {lookup} from "mime-types";
 import * as Promise from 'bluebird'
 import updateMovies from "./updateMovies";
@@ -20,6 +20,8 @@ const getMovies = (path): ThunkAction<Promise<any>, void, void> => {
             readdir(path, (err, files) => {
                 files = files.filter((item: string) => {
                     return lookup(join(path, item)).toString().match(/^video\/.*$/) !== null
+                }).map((item) => {
+                    return basename(item);
                 });
                 dispatch(updateMovies({
                     directory: path,

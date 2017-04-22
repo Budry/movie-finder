@@ -9,7 +9,7 @@
 
 import * as React from 'react'
 
-class Logo extends React.Component<void, void> {
+class Logo extends React.Component<any, any> {
 
     render() {
         return (

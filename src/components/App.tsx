@@ -12,7 +12,7 @@ import * as Promise from 'bluebird'
 import MenuBar from "./MenuBar";
 import ResultsBox from "./ResultsBox";
 import ActualDirectoryBox from "./ActualDirectoryBox";
-import {connect, Dispatch} from "react-redux";
+import {connect} from "react-redux";
 import loadLastMovies from "../actions/loadLastMovies";
 
 interface AppProps {

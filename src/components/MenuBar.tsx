@@ -12,12 +12,12 @@ import Logo from "./Logo";
 import ExportButton from "./ExportButton";
 import AnalyzeButton from "./AnalyzeButton";
 
-class MenuBar extends React.Component<void, void> {
+class MenuBar extends React.Component<any, any> {
 
     render() {
         return (
             <header className="menu-bar">
-                <Logo/>
+                <Logo />
                 <nav>
                     <ExportButton />
                     <AnalyzeButton />

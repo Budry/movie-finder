@@ -15,11 +15,14 @@ import {writeFile} from "fs";
 import {EOL, homedir, platform} from "os";
 import {join} from "path";
 import {MoviesState} from "../reducers/moviesReducer";
+import {Dispatch} from "redux";
+import updateLoadingState from "../actions/updateLoadingState";
 
 const Dialog = electron.remote.require('electron').dialog;
 
 interface ExportButtonProps {
     movies: MoviesState
+    updateLoadingState: (isLoading) => any
 }
 
 interface ExportButtonState {
@@ -56,12 +59,14 @@ class ExportButton extends React.Component<ExportButtonProps, ExportButtonState>
                 filters: filters
             });
             if (target) {
+                this.props.updateLoadingState(true);
                 this.setState({loading: true});
                 const data = this.props.movies.items.map((item: string) => {
                     return item;
                 }).join(EOL);
                 writeFile(target, data, () => {
                     this.setState({loading: false});
+                    this.props.updateLoadingState(false);
                 });
             }
         }
@@ -86,4 +91,12 @@ const mapStateToProps = (state) => {
     }
 };
 
-export default connect(mapStateToProps)(ExportButton)
+const mapDispatchToProps = (dispatch: Dispatch<any>) => {
+    return {
+        updateLoadingState: (isLoading: boolean) => {
+            return dispatch(updateLoadingState(isLoading))
+        }
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ExportButton)

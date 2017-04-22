@@ -13,11 +13,13 @@ import {connect, Dispatch} from "react-redux";
 import * as electron from 'electron'
 import * as cx from 'classnames'
 import getMovies from "../actions/getMovies";
+import updateLoadingState from "../actions/updateLoadingState";
 
 const Dialog = electron.remote.require('electron').dialog;
 
 interface AnalyzeButtonProps {
-    getMovies: (path: string) => Promise<any>
+    getMovies: (path: string) => Promise<any>,
+    updateLoadingState: (isLoading) => any
 }
 
 interface AnalyzeButtonState {
@@ -37,9 +39,11 @@ class AnalyzeButton extends React.Component<AnalyzeButtonProps, AnalyzeButtonSta
                 properties: ['openDirectory']
             });
             if (directory) {
+                this.props.updateLoadingState(true);
                 this.setState({loading: true});
                 this.props.getMovies(directory[0]).finally(() => {
                     this.setState({loading: false});
+                    this.props.updateLoadingState(false);
                 })
             }
         }
@@ -62,6 +66,9 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => {
     return {
         getMovies: (path: string) => {
             return dispatch(getMovies(path))
+        },
+        updateLoadingState: (isLoading: boolean) => {
+            return dispatch(updateLoadingState(isLoading))
         }
     }
 };

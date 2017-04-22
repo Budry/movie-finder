@@ -9,9 +9,11 @@
 
 import {combineReducers} from 'redux';
 import moviesReducer from './moviesReducer';
+import loadingReducer from './loadingReducer';
 
 const reducers = combineReducers({
     movies: moviesReducer,
+    loading: loadingReducer
 });
 
 export default reducers;

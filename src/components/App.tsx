@@ -10,6 +10,7 @@
 import * as React from 'react'
 import * as Promise from 'bluebird'
 import MenuBar from "./MenuBar";
+import LoadingBox from "./LoadingBox";
 import ResultsBox from "./ResultsBox";
 import ActualDirectoryBox from "./ActualDirectoryBox";
 import {connect} from "react-redux";
@@ -28,6 +29,7 @@ class App extends React.Component<AppProps, void> {
     render() {
         return (
             <div>
+                <LoadingBox />
                 <MenuBar />
                 <ActualDirectoryBox />
                 <ResultsBox />

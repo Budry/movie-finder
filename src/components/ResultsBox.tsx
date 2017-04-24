@@ -11,7 +11,6 @@ import * as React from 'react'
 import {connect, Dispatch} from "react-redux";
 import * as moment from 'moment';
 import * as arraySort from 'array-sort'
-import * as cx from 'classnames'
 import {MovieItem, MoviesState} from "../reducers/moviesReducer";
 import updateMoviesSort, {UpdateMoviesSort} from "../actions/updateMoviesSort";
 import SortMovieButton from "./SortMovieButton";
@@ -23,25 +22,18 @@ interface ResultsBoxProps {
 
 class ResultsBox extends React.Component<ResultsBoxProps, void> {
 
-    /*handleSort(column, e) {
-        e.preventDefault();
-        console.log(column);
-        let newReverse = false;
-        if (this.props.movies.sort.column === column) {
-            newReverse = !this.props.movies.sort.reverse;
-        }
-        this.props.updateMoviesSort(column, newReverse);
-    }*/
-
     render() {
 
-        const {items, sort} = this.props.movies;
+        const {items, sort, filter} = this.props.movies;
 
         const movies = arraySort(items, sort.column, {
             reverse: sort.reverse
+        }).filter((item: MovieItem) => {
+            if (filter === '') {
+                return true;
+            }
+            return (new RegExp(filter, 'gi')).test(item.name)
         });
-
-
 
         return (
             <div className="inner">
@@ -72,17 +64,6 @@ class ResultsBox extends React.Component<ResultsBoxProps, void> {
     }
 
 }
-/*
- <a href="" onClick={this.handleSort.bind(this, 'name')}>Jméno {column === 'name'
- ? (<i className={cx('fa', {'fa-caret-up': !reverse, 'fa-caret-down': reverse})}/>)
- : null
- }</a>
- <a href="" onClick={this.handleSort.bind(this, 'lastUpdated')}>Poslední změna {column === 'lastUpdated'
- ? (<i className={cx('fa', {'fa-caret-up': !reverse, 'fa-caret-down': reverse})}/>)
- : null
- }</a>
- */
-
 
 const mapStateToProps = (state) => {
     return {

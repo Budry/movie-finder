@@ -34,7 +34,8 @@ const getMovies = (path): ThunkAction<Promise<any>, void, void> => {
                     sort: {
                         column: 'name',
                         reverse: false
-                    }
+                    },
+                    filter: ''
                 }));
                 resolve()
             });

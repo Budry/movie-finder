@@ -15,6 +15,7 @@ import ResultsBox from "./ResultsBox";
 import ActualDirectoryBox from "./ActualDirectoryBox";
 import {connect} from "react-redux";
 import loadLastMovies from "../actions/loadLastMovies";
+import SearchForm from "./SearchForm";
 
 interface AppProps {
     loadLastMovies: () => Promise<void>
@@ -32,6 +33,7 @@ class App extends React.Component<AppProps, void> {
                 <LoadingBox />
                 <MenuBar />
                 <ActualDirectoryBox />
+                <SearchForm />
                 <ResultsBox />
             </div>
         );

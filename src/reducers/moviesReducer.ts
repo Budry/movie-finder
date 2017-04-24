@@ -11,11 +11,12 @@ import {Action} from 'redux'
 import * as merge from 'object-merge'
 import {UpdateMoviesAction} from "../actions/updateMovies";
 import {
-    LAST_MOVIES_STORAGE_KEY, UPDATE_MOVIES_ACTION_TYPE,
+    LAST_MOVIES_STORAGE_KEY, UPDATE_MOVIES_ACTION_TYPE, UPDATE_MOVIES_FILTER_ACTION_TYPE,
     UPDATE_MOVIES_SORT_ACTION_TYPE
 } from "../constants";
 import {set} from "electron-json-storage";
 import {UpdateMovieSortAction} from "../actions/updateMoviesSort";
+import {UpdateFilterAction} from "../actions/updateFilter";
 
 export interface MovieItem {
     name: string,
@@ -30,7 +31,8 @@ export interface MoviesSort {
 export interface MoviesState {
     directory: string,
     items: MovieItem[]
-    sort: MoviesSort
+    sort: MoviesSort,
+    filter: string
 }
 
 const initialState: MoviesState = {
@@ -39,7 +41,8 @@ const initialState: MoviesState = {
     sort: {
         reverse: false,
         column: 'name'
-    }
+    },
+    filter: ''
 };
 
 const moviesReducer = (state: MoviesState = initialState, action: Action): MoviesState => {
@@ -54,6 +57,8 @@ const moviesReducer = (state: MoviesState = initialState, action: Action): Movie
         set(LAST_MOVIES_STORAGE_KEY, state, (err) => {
             if (err) throw err;
         });
+    } else if (action.type === UPDATE_MOVIES_FILTER_ACTION_TYPE) {
+        state = merge({}, state, {filter: (<UpdateFilterAction>action).filter});
     }
 
     return state;

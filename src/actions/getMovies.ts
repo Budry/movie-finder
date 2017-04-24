@@ -11,10 +11,24 @@ import * as readdir from 'recursive-readdir'
 import {basename, join} from "path";
 import {lookup} from "mime-types";
 import * as Promise from 'bluebird'
-import updateMovies from "./updateMovies";
 import {ThunkAction} from "redux-thunk";
 import {MovieItem} from "../reducers/moviesReducer";
 import {statSync} from "fs";
+import {GET_MOVIES_ACTION_TYPE} from "../constants";
+
+export interface GetMoviesAction {
+    type: string,
+    items: MovieItem[],
+    directory: string
+}
+
+const action = (items: MovieItem[], directory: string): GetMoviesAction => {
+    return {
+        type: GET_MOVIES_ACTION_TYPE,
+        items: items,
+        directory: directory
+    }
+};
 
 const getMovies = (path): ThunkAction<Promise<any>, void, void> => {
     return (dispatch) => {
@@ -28,15 +42,7 @@ const getMovies = (path): ThunkAction<Promise<any>, void, void> => {
                         lastUpdated: statSync(item).mtime.getTime()
                     }
                 });
-                dispatch(updateMovies({
-                    directory: path,
-                    items: items,
-                    sort: {
-                        column: 'name',
-                        reverse: false
-                    },
-                    filter: ''
-                }));
+                dispatch(action(items, path));
                 resolve()
             });
         });

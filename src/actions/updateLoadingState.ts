@@ -1,4 +1,3 @@
-import {UPDATE_LOADING_STATE} from "../constants";
 /**
  * This file is part of the movie-finder package.
  *
@@ -7,6 +6,8 @@ import {UPDATE_LOADING_STATE} from "../constants";
  * For the full copyright and license information, please view the license.md
  * file that was distributed with this source code.
  */
+
+import {UPDATE_LOADING_STATE} from "../constants";
 
 export interface UpdateLoadingStateAction {
     type: string,

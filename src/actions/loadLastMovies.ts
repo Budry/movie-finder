@@ -9,10 +9,21 @@
 
 import {get, has} from "electron-json-storage";
 import * as Promise from 'bluebird'
-import {LAST_MOVIES_STORAGE_KEY} from "../constants";
-import {MoviesState} from "../reducers/moviesReducer";
-import updateMovies from "./updateMovies";
+import {GET_LAST_MOVIES_ACTION_TYPE, LAST_MOVIES_STORAGE_KEY} from "../constants";
+import {PersistentMoviesState} from "../reducers/moviesReducer";
 import {ThunkAction} from "redux-thunk";
+
+export interface LoadLastMoviesAction {
+    type: string,
+    movies: PersistentMoviesState
+}
+
+const action = (movies: PersistentMoviesState): LoadLastMoviesAction => {
+    return {
+        type: GET_LAST_MOVIES_ACTION_TYPE,
+        movies: movies
+    }
+};
 
 const loadLastMovies = (): ThunkAction<Promise<void>, void, void> => {
     return (dispatch) => {
@@ -20,9 +31,9 @@ const loadLastMovies = (): ThunkAction<Promise<void>, void, void> => {
             has(LAST_MOVIES_STORAGE_KEY, (err, hasKey) => {
                 if (err) return reject(err);
                 if (hasKey) {
-                    get(LAST_MOVIES_STORAGE_KEY, (err, result: MoviesState) => {
+                    get(LAST_MOVIES_STORAGE_KEY, (err, result: PersistentMoviesState) => {
                         if (err) return reject(err);
-                        dispatch(updateMovies(result));
+                        dispatch(action(result));
                         return resolve();
                     })
                 } else {

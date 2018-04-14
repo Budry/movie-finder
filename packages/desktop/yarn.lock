@@ -10,11 +10,11 @@
   version "0.0.19"
   resolved "https://registry.yarnpkg.com/@types/electron-json-storage/-/electron-json-storage-0.0.19.tgz#91833b532aec3c909734e3d0e277fe55b0ebcb5a"
 
-"@types/electron@^1.4.37":
-  version "1.4.37"
-  resolved "https://registry.yarnpkg.com/@types/electron/-/electron-1.4.37.tgz#cfff6958f224842c1742a6e4873ed7135e5f2ff3"
+"@types/electron@^1.6.10":
+  version "1.6.10"
+  resolved "https://registry.yarnpkg.com/@types/electron/-/electron-1.6.10.tgz#7e87888ed3888767cca68e92772c2c8ea46bc873"
   dependencies:
-    "@types/node" "*"
+    electron "*"
 
 "@types/mime-types@^2.1.0":
   version "2.1.0"
@@ -29,6 +29,14 @@
 "@types/node@*":
   version "7.0.13"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-7.0.13.tgz#1b0a53fe9ef9c3a5d061b126cc9b915bca43a3f5"
+
+"@types/node@^8.0.24":
+  version "8.10.8"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.10.8.tgz#794cba23cc9f8d9715f6543fa8827433b5f5cd3b"
+
+"@types/node@^9.6.5":
+  version "9.6.5"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-9.6.5.tgz#ee700810fdf49ac1c399fc5980b7559b3e5a381d"
 
 "@types/react-dom@^15.5.0":
   version "15.5.0"
@@ -847,10 +855,11 @@ electron-packager@^8.6.0:
     sanitize-filename "^1.6.0"
     semver "^5.3.0"
 
-electron@^1.6.5:
-  version "1.6.7"
-  resolved "https://registry.yarnpkg.com/electron/-/electron-1.6.7.tgz#08b90812912a66f80cfb47bdaef6edfd6b78aa81"
+electron@*, electron@^1.8.4:
+  version "1.8.4"
+  resolved "https://registry.yarnpkg.com/electron/-/electron-1.8.4.tgz#cca8d0e6889f238f55b414ad224f03e03b226a38"
   dependencies:
+    "@types/node" "^8.0.24"
     electron-download "^3.0.1"
     extract-zip "^1.0.3"
 
@@ -3256,9 +3265,9 @@ typedarray@~0.0.5:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
-typescript@^2.2.2:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.3.0.tgz#2e63e09284392bc8158a2444c33e2093795c0418"
+typescript@^2.8.1:
+  version "2.8.1"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.8.1.tgz#6160e4f8f195d5ba81d4876f9c0cc1fbc0820624"
 
 ua-parser-js@^0.7.9:
   version "0.7.12"

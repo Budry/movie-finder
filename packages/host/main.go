@@ -6,7 +6,7 @@ import (
 	"os"
 	"sync"
 
-	"github.com/budry/movie-finder/packages/host/file_system"
+	"github.com/budry/movie-finder/packages/host/fs"
 	"github.com/budry/movie-finder/packages/host/movies"
 )
 
@@ -24,7 +24,7 @@ func main() {
 	wg := &sync.WaitGroup{}
 
 	wg.Add(1)
-	file_system.ProcessDirectory(path, wg, movieRecords)
+	fs.ProcessDirectory(path, wg, movieRecords)
 	wg.Wait()
 
 	parsedMovies, err := json.Marshal(movieRecords.GetMovies())

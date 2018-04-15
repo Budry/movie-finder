@@ -4,13 +4,14 @@
     "module": "commonjs",
     "target": "es5",
     "jsx": "react",
+    "rootDir": "./src",
     "outDir": "./build"
   },
   "exclude": [
     "node_modules"
   ],
   "include": [
-    "src/index.tsx",
-    "src/main.ts"
+    "src/desktop/index.tsx",
+    "src/desktop/main.ts"
   ]
 }

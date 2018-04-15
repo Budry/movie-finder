@@ -16,7 +16,7 @@ let mainWindow: Electron.BrowserWindow = null;
 const createWindow = () => {
 
     const windowOptions = {
-        icon: join(__dirname, '../images/icon.png'),
+        icon: join(__dirname, '../../statics/images/icon.png'),
         x: screen.getPrimaryDisplay().workArea.x,
         y: screen.getPrimaryDisplay().workArea.y,
         width: screen.getPrimaryDisplay().workArea.width,
@@ -25,7 +25,7 @@ const createWindow = () => {
 
     mainWindow = new BrowserWindow(windowOptions);
     mainWindow.loadURL(url.format({
-        pathname: join(__dirname, '../statics/index.html'),
+        pathname: join(__dirname, '../../statics/views/index.html'),
         protocol: 'file:',
         slashes: true
     }));

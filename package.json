@@ -1,0 +1,30 @@
+{
+  "name": "movie-finder",
+  "version": "1.1.0",
+  "description": "Simple app for find movies in directory",
+  "main": "./build/main.js",
+  "scripts": {
+    "tsc": "tsc",
+    "gulp": "gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:Budry/movie-finder.git"
+  },
+  "author": "Ondřej Zráuba <info@zaruba-ondrej.cz> (https://zaruba-ondrej.cz)",
+  "license": "MIT",
+  "homepage": "https://github.com/Budry/movie-finder#readme",
+  "dependencies": {
+    "electron": "^1.8.4",
+    "react": "^16.3.1",
+    "react-dom": "^16.3.1",
+    "react-redux": "^5.0.7",
+    "redux": "^3.7.2"
+  },
+  "devDependencies": {
+    "@types/react": "^16.3.10",
+    "@types/react-dom": "^16.0.5",
+    "@types/react-redux": "^5.0.16",
+    "typescript": "^2.8.1"
+  }
+}

@@ -1,5 +1,5 @@
 /**
- * This file is part of the movie-finder package.
+ * This file is part of the MovieFinder package.
  *
  * (c) Ondřej Záruba <zarubaondra@gmail.com>
  *
@@ -7,4 +7,9 @@
  * file that was distributed with this source code.
  */
 
-declare const VERSION: string;
+import {combineReducers} from 'redux';
+
+const reducers = combineReducers({
+});
+
+export default reducers;

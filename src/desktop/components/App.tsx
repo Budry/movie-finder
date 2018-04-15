@@ -7,10 +7,18 @@
  * file that was distributed with this source code.
  */
 
-@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400');
+import * as React from 'react'
 
-h1 {
-  display: inline-block;
-  font-size: 25px;
-  line-height: normal;
+class App extends React.Component<{}, {}> {
+
+    render() {
+        return (
+            <div>
+                <h1>Hello world</h1>
+            </div>
+        );
+    }
+
 }
+
+export default App;

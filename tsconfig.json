@@ -3,10 +3,14 @@
     "moduleResolution": "node",
     "module": "commonjs",
     "target": "es5",
-    "sourceMap": true,
-    "jsx": "react"
+    "jsx": "react",
+    "outDir": "./build"
   },
   "exclude": [
     "node_modules"
+  ],
+  "include": [
+    "src/index.tsx",
+    "src/main.ts"
   ]
 }

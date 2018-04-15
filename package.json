@@ -4,9 +4,9 @@
   "description": "Simple app for find movies in directory",
   "main": "./build/desktop/main.js",
   "scripts": {
-    "tsc": "tsc",
-    "sass": "node-sass ./src/styles/bootstrap.scss ./build/styles/app.css",
-    "dev": "env NODE_ENV=develop electron ."
+    "build:desktop": "tsc",
+    "build:styles": "node-sass ./src/styles/bootstrap.scss ./build/styles/app.css",
+    "build:terminal": "sh ./scripts/build-terminal.sh"
   },
   "repository": {
     "type": "git",

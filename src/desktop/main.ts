@@ -32,6 +32,7 @@ const createWindow = () => {
     mainWindow.setMenu(null);
 
     // Open the DevTools.
+    mainWindow.webContents.openDevTools();
     if (process.env.NODE_ENV === 'develop') {
         mainWindow.webContents.openDevTools();
     }

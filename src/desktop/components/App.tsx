@@ -8,13 +8,45 @@
  */
 
 import * as React from 'react'
+import {execFile} from "child_process"
+const {dialog} = require('electron').remote;
 
-class App extends React.Component<{}, {}> {
+interface State {
+    output: string
+}
+
+class App extends React.Component<{}, State> {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            output: ""
+        }
+    }
+
+    handleClick = (e) => {
+        e.preventDefault();
+        const directory = dialog.showOpenDialog({
+            properties: ['openDirectory']
+        });
+        if (directory) {
+            execFile(__dirname + "/../../terminal/terminal", [directory[0]], {maxBuffer: 10000 * 1024}, (err, stdout, stderr) => {
+                console.log(err);
+                if (err) {
+                    this.setState({output: stderr})
+                } else {
+                    this.setState({output: JSON.parse(stdout).length})
+                }
+            });
+        }
+    };
 
     render() {
         return (
             <div>
                 <h1>Hello world</h1>
+                <a href={""} onClick={this.handleClick}>Run</a>
+                {this.state.output}
             </div>
         );
     }

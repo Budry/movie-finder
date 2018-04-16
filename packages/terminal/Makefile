@@ -1,4 +1,4 @@
-BUILD_DIR := ./build
+BUILD_DIR := ./dist
 APP_NAME := movie-finder
 SOURCE_DIR := ./src
 ENTRYPOINT := main.go

@@ -2,11 +2,11 @@
   "name": "movie-finder",
   "version": "1.1.0",
   "description": "Simple app for find movies in directory",
-  "main": "./build/desktop/main.js",
+  "main": "./build/js/main.js",
   "scripts": {
-    "build:desktop": "tsc",
-    "build:styles": "node-sass ./src/styles/bootstrap.scss ./build/styles/app.css",
-    "build:terminal": "sh ./scripts/build-terminal.sh"
+    "build:ts": "tsc",
+    "build:styles": "node-sass ./styles/bootstrap.scss ./build/css/app.css",
+    "dev": "NODE_ENV=develop electron ."
   },
   "repository": {
     "type": "git",

@@ -34,7 +34,7 @@ func (moviesSorter *MoviesSorter) Less(i, j int) bool {
 	movie1 := moviesSorter.Movies.Data[i]
 	movie2 := moviesSorter.Movies.Data[j]
 
-	compare := func (value1, value2 string) bool {
+	compare := func(value1, value2 string) bool {
 		if moviesSorter.Method == "ASC" {
 			return len(value1) < len(value2)
 		} else if moviesSorter.Method == "DESC" {

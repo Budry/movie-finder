@@ -2,7 +2,7 @@
   "name": "movie-finder",
   "version": "1.1.0",
   "description": "Simple app for find movies in directory",
-  "main": "./build/js/main.js",
+  "main": "./build/main.js",
   "scripts": {
     "build:ts": "tsc",
     "build:styles": "node-sass ./styles/bootstrap.scss ./build/css/app.css",

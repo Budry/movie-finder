@@ -30,12 +30,16 @@ class App extends React.Component<{}, State> {
             properties: ['openDirectory']
         });
         if (directory) {
-            execFile(__dirname + "/../../terminal/terminal", [directory[0]], {maxBuffer: 10000 * 1024}, (err, stdout, stderr) => {
-                console.log(err);
+            execFile(__dirname + "/../../external/movie-finder", [
+                "list",
+                "--format", "json",
+                "--limit", "10",
+                directory[0]
+            ], {maxBuffer: 10000 * 1024}, (err, stdout, stderr) => {
                 if (err) {
                     this.setState({output: stderr})
                 } else {
-                    this.setState({output: JSON.parse(stdout).length})
+                    this.setState({output: stdout})
                 }
             });
         }

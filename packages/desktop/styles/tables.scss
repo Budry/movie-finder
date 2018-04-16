@@ -1,0 +1,32 @@
+table {
+  border-collapse: collapse; // Prevent double borders
+  width: 100%;
+
+  th {
+    text-align: left;
+  }
+
+  th, td {
+    padding: 15px 25px;
+    vertical-align: top;
+    border-top: 1px solid #ebebeb;
+  }
+
+  thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #ebebeb;
+
+    & a {
+      text-decoration: none;
+      color: #20232a;
+      &:hover {
+        color: #cb2530;
+      }
+    }
+  }
+
+  & tbody + tbody {
+    border-top: 2px solid #ebebeb
+  }
+
+}

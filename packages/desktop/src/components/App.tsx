@@ -8,17 +8,17 @@
  */
 
 import * as React from 'react'
+import Header from "./Header";
+import ResultsBox from "./ResultsBox";
+import {StatelessComponent} from "react";
 
-class App extends React.Component<{}, {}> {
-
-    render() {
-        return (
-            <div>
-                <h1>Hello world</h1>
-            </div>
-        );
-    }
-
-}
+const App: StatelessComponent<{}> = () => {
+    return (
+        <React.Fragment>
+            <Header/>
+            <ResultsBox/>
+        </React.Fragment>
+    );
+};
 
 export default App;

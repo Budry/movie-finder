@@ -1,0 +1,22 @@
+.paginator {
+  width: 100%;
+  text-align: center;
+  margin-top: 15px;
+
+  a {
+    display: inline-block;
+    border: 1px solid #ebebeb;
+    padding: 8px;
+    text-decoration: none;
+    color: #000000;
+    margin: 0 2px;
+
+    &.active {
+      background-color: #ebebeb;
+    }
+
+    &:hover {
+      background-color: #ebebeb;
+    }
+  }
+}

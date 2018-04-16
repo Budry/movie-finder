@@ -6,8 +6,8 @@ import (
 	"os"
 	"sync"
 
-	"github.com/budry/movie-finder/src/terminal/fs"
-	"github.com/budry/movie-finder/src/terminal/movies"
+	"github.com/budry/movie-finder/packages/terminal/src/fs"
+	"github.com/budry/movie-finder/packages/terminal/src/movies"
 )
 
 func main() {

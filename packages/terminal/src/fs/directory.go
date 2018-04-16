@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 	"sync"
 
-	"github.com/budry/movie-finder/src/terminal/movies"
+	"github.com/budry/movie-finder/packages/terminal/src/movies"
 )
 
 func ProcessDirectory(dir string, wg *sync.WaitGroup, movieRecords *movies.Movies) {

@@ -4,7 +4,13 @@
     "module": "commonjs",
     "target": "es5",
     "jsx": "react",
-    "outDir": "./build"
+    "outDir": "./build",
+    "libs": [
+      "ES5",
+      "ES2015",
+      "DOM",
+      "ScriptHost"]
+    ]
   },
   "exclude": [
     "node_modules"

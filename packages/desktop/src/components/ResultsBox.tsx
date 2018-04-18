@@ -8,17 +8,32 @@
  */
 
 import * as React from "react";
-import {Component, StatelessComponent} from "react";
+import {Component} from "react";
 import SortButton from "./SortButton";
-import {SortObject} from "../SortObject";
+import {SortObject} from "../types/SortObject";
 import Paginator from "./Paginator";
+import {MoviesState} from "../reducers/moviesReducer";
+import {getMovies, GetMovies} from "../actions/getMovies";
+import {StoreState} from "../store";
+import {bindActionCreators} from "redux";
+import {connect} from "react-redux";
 
 interface State {
     actualSort: SortObject
     page: number
 }
 
-class ResultsBox extends Component <{}, State> {
+interface StateProps {
+    movies: MoviesState
+}
+
+interface DispatchProps {
+    getMovies: GetMovies
+}
+
+type MergedProps = DispatchProps & StateProps
+
+class ResultsBox extends Component <MergedProps, State> {
 
     constructor(props) {
         super(props);
@@ -42,6 +57,7 @@ class ResultsBox extends Component <{}, State> {
 
     render() {
         const {actualSort, page} = this.state;
+        const {movies} = this.props;
         return (
             <div>
                 <table>
@@ -60,14 +76,14 @@ class ResultsBox extends Component <{}, State> {
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>Test</td>
-                        <td>12.2.2018 15:56</td>
-                    </tr>
-                    <tr>
-                        <td>Test</td>
-                        <td>12.2.2018 15:56</td>
-                    </tr>
+                    {movies.data.map((movie, index) => {
+                        return (
+                            <tr>
+                                <td>{movie.name}</td>
+                                <td>{movie.last_change}</td>
+                            </tr>
+                        )
+                    })}
                     </tbody>
                 </table>
                 <Paginator actualPage={page} totalNumber={10} perPage={1} onChange={this.handleChangePage} />
@@ -76,4 +92,16 @@ class ResultsBox extends Component <{}, State> {
     }
 }
 
-export default ResultsBox
+const mapStateToProps = (state: StoreState) => {
+    return {
+        movies: state.movies
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators<any>({
+        getMovies: getMovies
+    }, dispatch);
+};
+
+export default connect<StateProps, DispatchProps, {}>(mapStateToProps, mapDispatchToProps)(ResultsBox)

@@ -9,7 +9,7 @@
 
 import * as React from "react";
 import * as classnames from "classnames";
-import {SortObject} from "../SortObject";
+import {SortObject} from "../types/SortObject";
 import {StatelessComponent} from "react";
 
 interface OwnProps {
@@ -45,8 +45,8 @@ const SortButton: StatelessComponent<OwnProps> = ({children, property, onChange,
             {actualSort && property === actualSort.property
                 ? (
                     <i className={classnames('fa', {
-                        'fa-caret-up': actualSort.method === "asc",
-                        'fa-caret-down': actualSort.method === "desc"
+                        'fa-caret-up': actualSort.method === "ASC",
+                        'fa-caret-down': actualSort.method === "DESC"
                     })}/>
                 )
                 : null

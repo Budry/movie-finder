@@ -8,15 +8,46 @@
  */
 
 import * as React from "react";
+import {remote} from "electron"
+import {getMovies, GetMovies} from "../actions/getMovies";
+import {bindActionCreators} from "redux";
+import {connect} from "react-redux";
+import {StatelessComponent} from "react";
+import {MovieFinderOptions} from "../utils/movie-finder-wrapper";
+import {getConfig} from "../config";
 
-class AnalyzeButton extends React.Component<{}, {}> {
-    render() {
-        return (
-            <a href="">
-                <i className="fas fa-search" /> Analyze directory
-            </a>
-        );
-    }
+interface DispatchProps {
+    getMovies: GetMovies
 }
 
-export default AnalyzeButton
+const AnalyzeButton: StatelessComponent<DispatchProps> = () => {
+
+    const handleClick = (e) => {
+        e.preventDefault();
+        const directory = remote.dialog.showOpenDialog({
+            properties: ['openDirectory']
+        });
+        if (directory && directory.length) {
+            const options: MovieFinderOptions = {
+                directory: directory[0],
+                limit: getConfig().limitPerPage,
+                offset: 0
+            };
+            getMovies(options);
+        }
+    };
+
+    return (
+        <a href="" onClick={handleClick}>
+            <i className="fas fa-search"/> Analyze directory
+        </a>
+    );
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators<any>({
+        getMovies: getMovies
+    }, dispatch);
+};
+
+export default connect<{}, DispatchProps, {}>(null, mapDispatchToProps)(AnalyzeButton);

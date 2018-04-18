@@ -12,8 +12,15 @@ type Movie struct {
 }
 
 type Movies struct {
-	Data  []*Movie
-	Mutex *sync.Mutex
+	Data  []*Movie    `json:"data"`
+	Total int         `json:"total"`
+	Mutex *sync.Mutex `json:"-"`
+}
+
+type MoviesExport struct {
+	Data      []*Movie `json:"data"`
+	Total     int      `json:"total"`
+	Displayed int      `json:"limit"`
 }
 
 type MoviesSorter struct {
@@ -56,11 +63,13 @@ func (moviesSorter *MoviesSorter) Less(i, j int) bool {
 func (movies *Movies) Init() {
 	movies.Data = make([]*Movie, 0)
 	movies.Mutex = &sync.Mutex{}
+	movies.Total = 0
 }
 
 func (movies *Movies) InsertMovie(name string, lastChange time.Time) {
 	movies.Mutex.Lock()
 	movie := &Movie{name, lastChange}
+	movies.Total++
 	movies.Data = append(movies.Data, movie)
 	movies.Mutex.Unlock()
 }
@@ -73,6 +82,10 @@ func (movies *Movies) Sort(key string, method string) {
 	sort.Sort(&MoviesSorter{movies, key, method})
 }
 
-func (movies Movies) GetMovies() []*Movie {
-	return movies.Data
+func (movies *Movies) Export() *MoviesExport {
+	return &MoviesExport{
+		movies.Data,
+		movies.Total,
+		len(movies.Data),
+	}
 }

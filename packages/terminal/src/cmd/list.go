@@ -12,7 +12,7 @@ import (
 )
 
 func HandleListCommand(c *cli.Context) error {
-	if (c.NArg() != 1) {
+	if c.NArg() != 1 {
 		panic("Missing path")
 	}
 
@@ -38,17 +38,18 @@ func HandleListCommand(c *cli.Context) error {
 
 	movieRecords.Sort(sortKey, sortMethod)
 
-	moviesList := movieRecords.GetMovies()
-
+	moviesExport := movieRecords.Export()
 	if format == "text" {
 		outputs := make([]string, 0)
-		for _, movie := range moviesList {
+		for _, movie := range moviesExport.Data {
 			outputs = append(outputs, fmt.Sprintf("%s|%s", movie.Name, movie.LastChange))
 		}
+		fmt.Printf("Total: %d\n", moviesExport.Total)
+		fmt.Printf("Displayed: %d\n", moviesExport.Displayed)
 		fmt.Println(columnize.SimpleFormat(outputs))
 		return nil
 	} else if format == "json" {
-		parsedMovies, err := json.Marshal(moviesList)
+		parsedMovies, err := json.Marshal(movieRecords.Export())
 		fmt.Println(string(parsedMovies))
 		return err
 	} else {

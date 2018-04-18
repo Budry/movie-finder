@@ -7,9 +7,15 @@
  * file that was distributed with this source code.
  */
 
-import {createStore} from 'redux';
+import {applyMiddleware, createStore} from 'redux';
+import thunk from 'redux-thunk';
 import reducers from './reducers/index';
+import {MoviesState} from "./reducers/moviesReducer";
 
-const store = createStore(reducers);
+export interface StoreState {
+    movies: MoviesState
+}
+
+const store = createStore(reducers, applyMiddleware(thunk));
 
 export default store;

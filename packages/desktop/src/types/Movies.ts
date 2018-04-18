@@ -7,7 +7,13 @@
  * file that was distributed with this source code.
  */
 
-export interface SortObject {
-    property: "Name" | "LastChange"
-    method: "ASC" | "DESC"
+export interface Movie {
+    name: string;
+    last_change: Date;
+}
+
+export interface Movies {
+    limit: number;
+    displayed: number;
+    data: Movie[];
 }
